@@ -43,12 +43,8 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-					<h1>WorldMood</h1>
-					<h3>An attempt to classify world sentiment in real-time</h3>
-					<p>
-					    <small>Created by <a href="http://hakim.se">Daniel Pyrathon</a></small>
-					</p>
+				<section class="one" data-background="#ffffff">
+                                        <img src="/images/worldmood_poster.jpg" />
 				</section>
 
 				<section>
@@ -129,12 +125,8 @@
                                     <img src="/images/worldmood" />
 				</section>
 
-				<section class="six">
-                                    <h3>Platform Overview</h3>
-                                    <img src="/images/worldmood_poster.jpg" />
-				</section>
 
-				<section class="seven">
+				<section class="six">
                                     <h3>Platform Overview</h3>
                                     <ul>
                                         <li class="fragment">
@@ -156,253 +148,183 @@
                                     </ul>
 				</section>
 
-				<section>
+				<section class="seven">
+                                    <h3>Platform Overview</h3>
+                                    <img src="/images/architecture.jpeg" />
+				</section>
+
+				<section class="eight">
 					<h2>Streamer</h2>
-
+                                        <div class="multicolumn">
+                                            <img src="/images/streamer.png" />
+                                            <ul>
+                                                Responsible for <strong>streaming</strong> realtime data to the system and
+                                                performs <strong>initial filtering</strong> (duplicate tweets, retweets, non-english tweets).
+                                            </ul>
+                                        </div>
 				</section>
 
-				<section>
-					<h2>Works in Mobile Safari</h2>
-					<p>
-						Try it out! You can swipe through the slides and pinch your way to the overview.
-					</p>
+				<section class="nine">
+					<h2>Classifier</h2>
+                                        <h5>3 steps</h5>
+                                        <ul>
+                                            <li class="fragment"><strong>Feature extraction</strong>: a pipeline of filters, used to extract features that greatly describe a phrase</li>
+                                            <li class="fragment"><strong>Dimensionality reduction</strong>: removes low information features that decrease performance</li>
+                                            <li class="fragment"><strong>Classification</strong>: Uses a supervised learning algorithm to train a classifier, that can be used to predict sentiment
+                                        </ul>
 				</section>
 
-				<section>
-					<h2>Marvelous Unordered List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
+				<section class="ten">
+                                    <section>
+                                        <h3>Feature Extraction</h3>
+
+                                        <p>How are we going to find features from a phrase?</p>
+                                        <pre><code data-trim>
+my_phrase = "Today was such a rainy and horrible day"
+                                        </code></pre>
+                                        <ol>
+                                            <li class="fragment">Create a <strong>pipeline</strong> of feature extractors</li>
+                                            <li class="fragment">Start with a <strong>"Bag of Words"</strong> representation</li>
+                                            <li class="fragment">Pass the representation down the pipeline</li>
+                                        </ol>
+                                    </section>
+                                    <section>
+                                        <h3>Feature Extraction</h3>
+                                        <h5>Create a pipeline of feature extractors</h5>
+
+                                        <pre><code class="python" data-trim>
+FORMATTER = formatting.FormatterPipeline(
+    formatting.make_lowercase,
+    formatting.strip_urls,
+    formatting.strip_hashtags,
+    formatting.strip_names,
+    formatting.remove_repetitons,
+    formatting.replace_html_entities,
+    formatting.strip_nonchars,
+    functools.partial(
+        formatting.remove_noise,
+        stopwords = stopwords.words('english') + ['rt']
+    ),
+    functools.partial(
+        formatting.stem_words,
+        stemmer= nltk.stem.porter.PorterStemmer()
+    )
+)
+                                        </code></pre>
+
+                                    </section>
+                                    <section>
+                                        <h3>Feature Extraction</h3>
+                                        <h5>Start with a Bag of Words approach</h5>
+
+                                        <pre><code class="python" data-trim>
+In [12]: from nltk import word_tokenize
+
+In [13]: word_tokenize("Today was such a rainy and horrible day")
+Out[13]: ['Today', 'was', 'such', 'a', 'rainy', 'and', 'horrible', 'day']
+                                        </code></pre>
+
+                                    </section>
+                                    <section>
+                                        <h3>Feature Extraction</h3>
+                                        <h5>Pass the representation down the pipeline</h5>
+
+                                        <pre><code class="python" data-trim>
+In [11]: feature_extractor.extract("Today was such a rainy and horrible day")
+Out[11]: {'day': True, 'horribl': True, 'raini': True, 'today': True}
+                                        </code></pre>
+                                        <p class="fragment">The result is a <strong>dict</strong> of variable length, containing <strong>keys</strong> as features and <strong>values</strong> as always True</p>
+                                    </section>
 				</section>
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
+				<section class="eleven">
+                                        <h3>Dimensionality Reduction</h3>
+					<p class="fragment">Process: Remove features that are common across all classes, and therefore contribute little information to the classification process.</p>
+                                        <p class="fragment">This process is also called removing <strong>noise</strong></p>
+                                        <p class="fragment">Why: When you use only the higher information features, you can <strong>increase performance</strong> while also <strong>decreasing the size</strong> of the model, which results in less memory usage along with faster training and classification.</p>
 				</section>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+				<section class="twelve">
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+                                        <p>How do we find the most informative features?</p>
+                                        <ol>
+                                            <li>Calculate the probability each word appears in different contexts</li>
+                                            <li>Score each word with a Chi-square test</li>
+                                            <li>Take the top N</li>
+                                        </ol>
+                                    </section>
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+					<h5>Calculate Probability distributions</h5>
+                                        <p>NLTK provides us with these implementations</p>
+                                        <ul>
+                                            <li class="fragment">
+                                                <p>How often have I seen a word?</p>
+                                                <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+In [25]: fd = FreqDist()
+In [26]: [fd.inc("happy") for _ in range(20)]
+In [27]: [fd.inc("sad") for _ in range(5)]
 
-						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+In [30]: fd
+Out[30]: < FreqDist with 2 samples and 25 outcomes >
+                                                </code></pre>
+                                            </li>
+                                            <li class="fragment">
+                                                <p>How often have I seen a word in a specific class?</p>
+                                                <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+In [32]: cfd = ConditionalFreqDist()
+In [37]: cfd["positive"].inc("weather")
+In [38]: cfd["negative"].inc("weather")
+In [39]: cfd["negative"].inc("sad")
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+In [43]: cfd["positive"]
+Out[43]: < FreqDist with 1 samples and 1 outcomes >
+In [44]: cfd["negative"]
+Out[44]: < FreqDist with 2 samples and 2 outcomes >
+                                                </code></pre>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+					<h5>Calculate Probability distributions</h5>
+                                        <ul>
+                                            <li class="fragment">
+                                                <p class="probs">These can be easily created in O(n)</p>
+                                                <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+for word, sentiment in phrase.extract_feats():
+    fd.inc(word)
+    cfd[sentiment].inc(word)
+                                                </code></pre>
+                                            </li>
+                                        </ul>
+                                    </section>
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+					<h5>Score each word with a chi-square test</h5>
+                                        <p>Once we have this FreqDist and ConditionalFreqDist, we can score each word on a per-label basis using a chi-square score</p>
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeiHPVQjC9-z-2ykpZZXGsJVdoFmtc8S--ktaZ2-mhK3z6erUs" />
+                                        <ol>
+                                            <li>The frequency of the word in the label.</li>
+                                            <li>The total frequency of the word across all labels.</li>
+                                            <li>The total frequency of all words that occurred in the label.</li>
+                                            <li>The total frequency for all words in all labels.</li>
+                                        </ol>
+                                    </section>
 
-						  For those of you who like that sort of thing.
-						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+					<h5>Take the top N</h5>
+                                        <p>The bigger the score is, the more informative the feature is</p>
+                                        <ol>
+                                            <li class="fragment">Sort by score in descending order</li>
+                                            <li class="fragment">Take the top N</li>
+                                            <li style="margin-top: 50px;"class="fragment">  ..or use a heap     ;)</li>
+                                        </ol>
+                                    </section>
+
 				</section>
-
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=cube#/transitions">Cube</a> -
-						<a href="?transition=page#/transitions">Page</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a> -
-						<a href="?transition=linear#/transitions">Linear</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?#/transitions">Default</a>
-					</p>
-				</section>
-
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?#/themes">Default</a> -
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> <br>
-						<a href="?theme=moon#/themes">Moon</a> -
-						<a href="?theme=solarized#/themes">Solarized</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>Custom Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<section data-background="#007777">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#007777"</code> on a slide to change the full page background to the given color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Repeated Image Backgrounds</h2>
-						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-				</section>
-
-				<section data-transition="linear" data-background="#4d7e65" data-background-transition="slide">
-					<h2>Background Transitions</h2>
-					<p>
-						Pass reveal.js the <code>backgroundTransition: 'slide'</code> config argument to make backgrounds slide rather than fade.
-					</p>
-				</section>
-
-				<section data-transition="linear" data-background="#8c4738" data-background-transition="slide">
-					<h2>Background Transition Override</h2>
-					<p>
-						You can override background transitions per slide by using <code>data-background-transition="slide"</code>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
-
-    var nodes = document.querySelectorAll( selector );
-
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
-
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<section id="fragments">
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
-
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-current-blue">highlight-current-blue</p>
-					</section>
-				</section>
-
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-					<script>
-						document.getElementById('slideshare').attributeName = 'allowfullscreen';
-					</script>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
-						during a presentation.
-					</p>
-				</section>
-
-				<section>
-					<h2>Stellar Links</h2>
-					<ul>
-						<li><a href="http://slid.es">Try the online editor</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
-				</section>
-
 			</div>
 
 		</div>
