@@ -237,14 +237,15 @@ Out[11]: {'day': True, 'horribl': True, 'raini': True, 'today': True}
                                     </section>
 				</section>
 
-				<section class="eleven">
-                                        <h3>Dimensionality Reduction</h3>
-					<p class="fragment">Process: Remove features that are common across all classes, and therefore contribute little information to the classification process.</p>
-                                        <p class="fragment">This process is also called removing <strong>noise</strong></p>
-                                        <p class="fragment">Why: When you use only the higher information features, you can <strong>increase performance</strong> while also <strong>decreasing the size</strong> of the model, which results in less memory usage along with faster training and classification.</p>
-				</section>
-
 				<section class="twelve">
+                                    <section>
+                                        <h3>Dimensionality Reduction</h3>
+                                        <ul>
+                                            <li>Remove features that are common across all classes (<strong>noise</strong>)</li>
+                                            <li>Increase <strong>performance</strong> of the classifier</li>
+                                            <li>Decrease the <strong>size</strong> of the model, less memory usage and more speed</li>
+                                        </ul>
+                                    </section>
                                     <section>
                                         <h3>Dimensionality Reduction</h3>
                                         <p>How do we find the most informative features?</p>
@@ -325,6 +326,44 @@ for word, sentiment in phrase.extract_feats():
                                     </section>
 
 				</section>
+                                <section>
+                                    <section>
+                                        <h3>Classification</h3>
+                                        <p>Now that we can extract features from text, we can train a classifier. The simplest and most flexible learning algoritm for text classification is Naive Bayes</p>
+                                        <pre><code>P(label | features) = P(label) * P(features | label) / P(features)</code></pre>
+                                        <ul>
+                                            <li class="fragment">Simple to compute = <strong>fast</strong></li>
+                                            <li class="fragment">Assumes feature indipendence = <strong>easy to update</strong></li>
+                                            <li class="fragment">Supports multiclass = <strong>scalable</strong></li>
+                                        </ul>
+                                    </section>
+                                    <section>
+                                        <h3>Classification</h3>
+                                        <p>NLTK provides built-in components</p>
+                                        <ol>
+                                            <li class="fragment">
+                                                <p>Train the classifier</p>
+                                                <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+>>> from nltk.classify import NaiveBayesClassifier
+>>> nb_classifier = NaiveBayesClassifier.train(train_feats)
+... wait a lot of time
+>>> nb_classifier.labels()
+['neg', 'pos']
+                                                </code></pre>
+                                            </li>
+                                            <li class="fragment">
+                                                <p>Serialize classifier for later use</p>
+                                                <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+>>> serializer.dump(nb_classifier, file_handle)
+                                                </code></pre>
+                                            </li>
+                                            <li class="fragment">Train once, use as much as you want</li>
+                                        </ol>
+                                    </section>
+                                    <section>
+
+                                    </section>
+                                </section>
 			</div>
 
 		</div>
