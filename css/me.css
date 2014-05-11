@@ -1,0 +1,24 @@
+strong {
+    color: #13daec;
+}
+
+.space {
+    margin-bottom: 15px !important;
+}
+
+.four p, .five p {
+    margin-bottom: 40px;
+}
+
+.five img {
+    height: 380px;
+}
+
+#multicolumn {
+    -moz-column-count: 2;
+    -moz-column-gap: 50%;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 50%;
+    column-count: 3;
+    column-gap: 50%;
+}

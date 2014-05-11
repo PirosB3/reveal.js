@@ -16,6 +16,7 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/me.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -43,72 +44,121 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
+					<h1>WorldMood</h1>
+					<h3>An attempt to classify world sentiment in real-time</h3>
 					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
+					    <small>Created by <a href="http://hakim.se">Daniel Pyrathon</a></small>
 					</p>
 				</section>
 
 				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
+                                    <h2>What is Sentiment Analysis</h2>
+                                    <ul>
+                                        <li>It's software for automatically extracting opinions, emotions and sentiment in text</li>
+                                        <li>It allows us to track attitudes and feelings on the web. People write blog posts, comments, reviews and tweets about all sorts of different topics.</li>
+                                        <li>It allows us to track products, brands, and people to determine whether they are viewed positively or negatively on the web (Marie-Claire Jerkins)</li>
+                                    </ul>
+                                </section>
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
+				<section>
+					<p style="text-align:left; margin-bottom:20px">Microblogging websites have evolved to become a source of varied kind of information</p>
+                                        <ul>
+                                            <li style="margin-bottom:20px">People post real time messages about their opinions on a variety of topics (politics, weather, fashion, ..)</li>
+                                            <li>
+                                                <p>Companies have started to use this information to get a sense of general sentiment for their product</p>
+                                                <div style="text-align: center;">
+<blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/derrickharris">@derrickharris</a> Thanks for being a Quiznos fan, Derrick! Here’s a coupon to use on your next visit: <a href="http://t.co/yWS2wDlhi6">http://t.co/yWS2wDlhi6</a></p>&mdash; Quiznos (@Quiznos) <a href="https://twitter.com/Quiznos/statuses/306723247829970944">February 27, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                                </div>
+                                            </li>
+                                        </ul>
+
 				</section>
 
 				<!-- Example of nested vertical slides -->
 				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>
-							Slides can be nested inside of other slides,
-							try pressing <a href="#" class="navigate-down">down</a>.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Press down or up to navigate.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>Cornify</p>
-						<a class="test" href="http://cornify.com">
-							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 3</h2>
-						<p>That's it, time to go back up.</p>
-						<a href="#/2" class="image">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
+				    <section>
+                                        <p>But there are many other use cases</p>
+				    </section>
+				    <section>
+                                        <h2>Forecasting Elections</h2>
+                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
+                                            &ldquo;Recorded Future introduced its new election monitoring application that uses sentiment analysis to forecast the GOP presidential nominee, and ultimately, will look to predict the general election winner.&rdquo;
+                                        </blockquote>
+                                        <img height="380" src="/images/elections.png" />
+				    </section>
+				    <section>
+                                        <h2>Stock market prediction</h2>
+                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
+                                            &ldquo;Financial markets aren't rational. Emotions influence asset pricing.&rdquo;
+                                        </blockquote>
+                                        <img src="http://finno.files.wordpress.com/2011/07/social-media-sentiment-sntmnt-stock-price-finno.jpg" />
+				    </section>
+				    <section>
+                                        <h2>Responding to customer feedback</h2>
+                                        <p style="text-align: left;">Different coupons offered by Wal-Mart are issues to happy and upset customers.</p>
+                                        <div style="text-align:center;"> 
+                                            <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/derrickharris">@derrickharris</a> Thanks for being a Quiznos fan, Derrick! Here’s a coupon to use on your next visit: <a href="http://t.co/yWS2wDlhi6">http://t.co/yWS2wDlhi6</a></p>&mdash; Quiznos (@Quiznos) <a href="https://twitter.com/Quiznos/statuses/306723247829970944">February 27, 2013</a></blockquote>
+                                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                        </div>
+				    </section>
+				    <section>
+                                        <h2>Predicting live sports events</h2>
+                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
+                                            &ldquo;Sentibet, currently in beta, applies text analytics to sports-related tweets, extracting wishes, feelings, and predictions from tweets about specific sports and games.&rdquo;
+                                        </blockquote>
+                                        <img src="http://media.tumblr.com/tumblr_m6xk25lL3X1r3gg7n.jpg" />
+				    </section>
+
+                                    
+				</section>
+
+				<section data-transition="none" class="four">
+				    <h2>WorldMood</h2>
+                                    <p>WorldMood is a <strong>real-time</strong> sentiment analysis processor, that uses <strong>natural language processing</strong> combined with <strong>machine learning</strong> to provide aggregated statistics and insights to clients on a topic or trend.</p>
+                                    <ul>
+                                        <li class="fragment space">Real-time feeds are processed instantly</li>
+                                        <li class="fragment space">Accessible on any web browser, with stunning user experience</li>
+                                        <li class="fragment space">Scalable and maintainable architecture, future-proof!</li>
+                                    </ul>
+				</section>
+
+				<section data-transition="none" class="five">
+				    <h2>WorldMood</h2>
+                                    <p>WorldMood is a <strong>real-time</strong> sentiment analysis processor, that uses <strong>natural language processing</strong> combined with <strong>machine learning</strong> to provide aggregated statistics and insights to clients on a topic or trend.</p>
+                                    <img src="/images/worldmood" />
+				</section>
+
+				<section class="six">
+                                    <h3>Platform Overview</h3>
+                                    <img src="/images/worldmood_poster.jpg" />
+				</section>
+
+				<section class="seven">
+                                    <h3>Platform Overview</h3>
+                                    <ul>
+                                        <li class="fragment">
+                                            <strong>Streamer</strong>
+                                            <p>Provides a non-blocking pipeline for collecting real-time tweets from Twitter</p>
+                                        </li>
+                                        <li class="fragment">
+                                            <strong>Classifier</strong>
+                                            <p>Extracts informative features from phrases and predicts their sentiment</p>
+                                        </li>
+                                        <li class="fragment">
+                                            <strong>Web Application</strong>
+                                            <p>Receives classified tweets in real-time and displays informative features through graphs and charts</p>
+                                        </li>
+                                        <li class="fragment">
+                                            <strong>Core</strong>
+                                            <p>Provides a centralized process the above services use to communicate</p>
+                                        </li>
+                                    </ul>
 				</section>
 
 				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
-					</p>
-				</section>
+					<h2>Streamer</h2>
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
 				</section>
 
 				<section>
