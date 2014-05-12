@@ -10,13 +10,17 @@ strong {
     margin-bottom: 40px;
 }
 
+.fourteen li {
+    margin-bottom: 20px;
+}
+
 .one img {
     border: none !important;
     box-shadow: none !important;
 }
 
 .five img {
-    height: 380px;
+    height: 480px;
 }
 
 .multicolumn {
