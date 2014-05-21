@@ -1,3 +1,32 @@
+.slide-background.present{
+    opacity: 0.1 !important;
+}
+
+.mlweb div {
+    display: inline-block;
+}
+
+.mlweb div {
+    width: 250px;
+    height: 250px;
+}
+
+.mlweb .plus {
+    vertical-align: middle;
+    font-size: 70px;
+    width: 50px;
+}
+
+.me img{
+    width: 32%;
+    display: inline-block;
+}
+
+.me .classrm {
+    position: relative;
+    top: -9px;
+}
+
 strong {
     color: #13daec;
 }
