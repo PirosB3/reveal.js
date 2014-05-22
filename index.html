@@ -389,6 +389,30 @@ for word, freq in word_fd.iteritems():
                                     </section>
                                 </section>
 
+                                <section>
+                                    <h3>Using the classifier</h3>
+                                        <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+# Load the classifier from the serialized file
+classifier = pickle.loads(classifier_file.read())
+
+# Pick a new phrase
+new_phrase = "At Pycon Italy! Love the food and this speaker is so amazing"
+
+# 1) Preprocessing
+feature_vector = feature_extractor.extract(phrase)
+
+# 2) Dimensionality reduction, best_features is our set of best words
+reduced_feature_vector = reduce_features(feature_vector, best_features)
+
+# 3) Classify!
+print self.classifier.classify(reduced_feature_vector)
+>>> "pos"
+                                        </code></pre>
+                                </section>
+                                <section>
+                                    <h3>Building a classification API</h3>
+                                </section>
+
 
                                 <section class="fourteen">
                                     <section>
