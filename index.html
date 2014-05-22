@@ -176,96 +176,46 @@
                                 </section>
 				<section data-transition="none">
                                     <h3>Natural Language Processing</h3>
-                                    <h5>Feature Extraction</h5>
+                                    <h5>Some NLTK features</h5>
                                     <div class="nlp">
-                                        <img src="http://www.agnitum.com/images/news/list/SI/oct06/spam1.gif"/>
-                                        <pre><code data-trim>
-nlp.extract_features(email_obj)
-[
-    "has(pharmacy)",
-    "has(prescription)",
-    "has(viagra)",
-    "has(valium)"
-    "email_has(advertiser)",
-    "subject_has_hash_char"
-]
-
-                                        </code></pre>
-                                    </div>
-                                </section>
-				<section data-transition="none">
-                                    <h3>Natural Language Processing</h3>
-                                    <h5>Feature Reduction</h5>
-                                    <div class="nlp">
-                                        <p>Tokentization and stopword removal</p>
+                                        <p>Tokentization</p>
                                         <pre><code data-trim>
 >>> phrase = "I wish to buy specified products or service"
 >>> phrase = nlp.tokenize(phrase)
-
 >>> phrase
 ['I', 'wish', 'to', 'buy', 'specified', 'products', 'or', 'service']
+                                        </code></pre>
 
->>> phrase = remove_stopwords(tokenized_phrase)
+                                        <p>Stopword Removal</p>
+                                        <pre><code data-trim>
+>>> phrase = nlp.remove_stopwords(tokenized_phrase)
 >>> phrase
 ['I', 'wish', 'buy', 'specified', 'products', 'service']
                                         </code></pre>
                                     </div>
                                 </section>
-
-				<section class="one" data-background="#ffffff">
-                                    <img src="/images/worldmood_poster.jpg" />
-				</section>
 				<section>
-                                    <h2>What is Sentiment Analysis</h2>
+                                    <h3>Sentiment Analysis</h3>
                                     <img src="http://analyticstraining.com/wp-content/uploads/2011/02/illustration_12.jpg" />
                                 </section>
-
 				<section>
-                                    <h2>Twitter and Sentiment analysis</h2>
+                                    <h3>Back to building our API</h3>
+                                    <h5>.. finally!</h5>
+				</section>
+				<section class="five">
+				    <h2>WorldMood</h2>
+                                    <img src="/images/worldmood" />
+				</section>
+				<section>
+                                    <h3>The Dataset</h3>
+                                    <h5>Sentiment140</h5>
                                     <ul>
-                                        <li class="fragment">Users post messages about <strong>opinions</strong> on a variety of topics</li>
-                                        <li class="fragment">Tweets move <strong>faster</strong> than earthquakes (Washington Post)</li>
-                                        <li class="fragment">Companies use Sentiment Analysis to discover <strong>trends</strong> about their brand</li>
+                                        <li>160.000 labelled tweets</li>
+                                        <li>CSV format</li>
+                                        <li>Polarity of the tweet (0 = negative, 2 = neutral, 4 = positive)</li>
+                                        <li>The text of the tweet (Lyx is cool)</li>
                                     </ul>
-				</section>
-
-				<!-- Example of nested vertical slides -->
-				<section>
-				    <section>
-                                        <p>But there are many other use cases..</p>
-				    </section>
-				    <section>
-                                        <h2>Forecasting Elections</h2>
-                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
-                                            &ldquo;Recorded Future introduced its new election monitoring application that uses sentiment analysis to forecast the GOP presidential nominee, and ultimately, will look to predict the general election winner.&rdquo;
-                                        </blockquote>
-                                        <img height="380" src="/images/elections.png" />
-				    </section>
-				    <section>
-                                        <h2>Stock market prediction</h2>
-                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
-                                            &ldquo;Financial markets aren't rational. Emotions influence asset pricing.&rdquo;
-                                        </blockquote>
-                                        <img src="http://finno.files.wordpress.com/2011/07/social-media-sentiment-sntmnt-stock-price-finno.jpg" />
-				    </section>
-				    <section>
-                                        <h2>Responding to customer feedback</h2>
-                                        <div class="multicolumn">
-                                            <p style="text-align: left;">Different coupons offered by Wal-Mart are issues to happy and upset customers.</p>
-                                            <div> 
-                                                <blockquote class="twitter-tweet" lang="en"><p><a href="https://twitter.com/derrickharris">@derrickharris</a> Thanks for being a Quiznos fan, Derrick! Here’s a coupon to use on your next visit: <a href="http://t.co/yWS2wDlhi6">http://t.co/yWS2wDlhi6</a></p>&mdash; Quiznos (@Quiznos) <a href="https://twitter.com/Quiznos/statuses/306723247829970944">February 27, 2013</a></blockquote>
-                                                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-                                            </div>
-                                        </div>
-				    </section>
-				    <section>
-                                        <h2>Predicting live sports events</h2>
-                                        <blockquote cite="http://www.huffingtonpost.com/chris-holden/forecasting-the-us-presid_b_1324685.html">
-                                            &ldquo;Sentibet, currently in beta, applies text analytics to sports-related tweets, extracting wishes, feelings, and predictions from tweets about specific sports and games.&rdquo;
-                                        </blockquote>
-                                        <img src="http://media.tumblr.com/tumblr_m6xk25lL3X1r3gg7n.jpg" />
-				    </section>
-				</section>
+                                </section>
 				<section>
                                     <h2>Classifying Twitter sentiment is hard</h2>
                                     <div class="multicolumn">
@@ -279,64 +229,9 @@ nlp.extract_features(email_obj)
                                         <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                                     </div>
                                 </section>
-
-				<section data-transition="none" class="four">
-				    <h2>WorldMood</h2>
-                                    <p>WorldMood is a <strong>real-time</strong> sentiment analysis processor, that uses <strong>natural language processing</strong> combined with <strong>machine learning</strong> to provide aggregated statistics and insights from <strong>Twitter</strong></p>
-                                    <ul>
-                                        <li class="fragment space">Real-time feeds are processed instantly</li>
-                                        <li class="fragment space">Accessible on any web browser, with stunning user experience</li>
-                                        <li class="fragment space">Scalable and maintainable architecture, future-proof!</li>
-                                    </ul>
-				</section>
-
-				<section data-transition="none" class="five">
-				    <h2>WorldMood</h2>
-                                    <img src="/images/worldmood" />
-				</section>
-
-
-				<section class="six">
-                                    <h3>Platform Overview</h3>
-                                    <ul>
-                                        <li class="fragment">
-                                            <strong>Streamer</strong>
-                                            <p>Provides a non-blocking pipeline for collecting real-time tweets from Twitter</p>
-                                        </li>
-                                        <li class="fragment">
-                                            <strong>Classifier</strong>
-                                            <p>Extracts informative features from phrases and predicts their sentiment</p>
-                                        </li>
-                                        <li class="fragment">
-                                            <strong>Web Application</strong>
-                                            <p>Receives classified tweets in real-time and displays informative features through graphs and charts</p>
-                                        </li>
-                                        <li class="fragment">
-                                            <strong>Core</strong>
-                                            <p>Provides a centralized process the above services use to communicate</p>
-                                        </li>
-                                    </ul>
-				</section>
-
-				<section class="seven">
-                                    <h3>Platform Overview</h3>
-                                    <img src="/images/architecture.jpeg" />
-				</section>
-
-				<section class="eight">
-					<h2>Streamer</h2>
-                                        <div class="multicolumn">
-                                            <img src="/images/streamer.png" />
-                                            <ul>
-                                                <li><strong>streams</strong> real-time tweets to the system</li>
-                                                <li>performs <strong>filtering</strong> (duplicate tweets, retweets, non-english tweets)</li>
-                                            </ul>
-                                        </div>
-				</section>
-
 				<section class="nine">
 					<h2>Classifier</h2>
-                                        <h5>3 steps</h5>
+                                        <h5>3 step training process</h5>
                                         <ul>
                                             <li class="fragment"><strong>Feature extraction</strong>: a pipeline of filters, used to extract features that greatly describe a phrase</li>
                                             <li class="fragment"><strong>Dimensionality reduction</strong>: removes low information features that decrease performance</li>
