@@ -6,6 +6,16 @@
     display: inline-block;
 }
 
+.pipeline {
+    display: inline-block;
+}
+
+.pipeline div, .pipeline img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 500px;
+}
+
 .mlweb div {
     width: 250px;
     height: 250px;
