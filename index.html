@@ -410,42 +410,21 @@ print self.classifier.classify(reduced_feature_vector)
                                         </code></pre>
                                 </section>
                                 <section>
-                                    <h3>Building a classification API</h3>
-                                </section>
-
-
-                                <section class="fourteen">
                                     <section>
-                                        <h2>Core</h2>
+                                        <h3>Building a classification API</h3>
+                                        <img src="/images/ipc2.png"/>
                                         <ul>
-                                            <li class="fragment">Provides <strong>inter-process communication</strong> to streamer and classifier</li>
-                                            <li class="fragment">Built with scalability and maintainability in mind</li>
-                                            <li class="fragment">Event driven: Everything is within the concept of a <strong>stream</strong></li>
+                                            <li class="fragment">Classifier is slow, no matter how much optimization is made</li>
+                                            <li class="fragment">Classifier is a blocking process, API must be event-driven</li>
                                         </ul>
                                     </section>
                                     <section>
-                                        <h3>Inter-Process Communication</h3>
-                                        <h5>Why do we need it?</h5>
-                                        <div class="multicolumn">
-                                            <ul>
-                                                <li class="fragment">Twitter stream is concurrent, up to 50 tps</li>
-                                                <li class="fragment">Classifier is slow, no matter how much optimization is made</li>
-                                                <li class="fragment">Classifier is a blocking process, Streamer is event-driven</li>
-                                            </ul>
-                                            <img src="/images/ipc2.png"/>
-                                        </div>
+                                        <h3>Building a classification API</h3>
+                                        <h5>Scaling towards infinity and beyond</h5>
+                                        <img src="/images/ipc3.png"/>
                                     </section>
                                     <section>
-                                        <h3>Inter-Process Communication</h3>
-                                        <h5>Creating a distributed system</h5>
-                                        <ul>
-                                            <li class="fragment">Distribute applications across multiple processes</li>
-                                            <li class="fragment">Apps handle a small scope of the responsibility</li>
-                                            <li class="fragment">Apps talk to apps via a standardized protocol</li>
-                                        </ul>
-                                    </section>
-                                    <section>
-                                        <h3>Inter-Process Communication</h3>
+                                        <h3>Building a classification API</h3>
                                         <h5>ZeroMQ</h5>
                                         <div class="multicolumn">
                                             <ul>
@@ -456,27 +435,10 @@ print self.classifier.classify(reduced_feature_vector)
                                             <img src="http://www.enterpriseintegrationpatterns.com/img/CompetingConsumers.gif" alt="" />
                                         </div>
                                     </section>
-                                    <section>
-                                        <h3>Inter-Process Communication</h3>
-                                        <h5>Round-robin load balancing</h5>
-                                        <img src="/images/ipc3.png" />
-                                    </section>
                                 </section>
 
-                                <section class="fifteen">
-                                    <h2>Web Application</h2>
-                                    <div class="multicolumn">
-                                        <ul>
-                                            <li class="fragment">Built using BackboneJS</li>
-                                            <li class="fragment">Uses <strong>MVC</strong> and <strong>PUB-SUB</strong> to communicate throughout the system</li>
-                                            <li class="fragment">Not a web site, a fully independent web application</li>
-                                            <li class="fragment">Uses <strong>web-sockets</strong> for real-time communication</li>
-                                        </ul>
-                                        <img src="/images/worldmood" />
-                                    </div>
-                                </section>
                                 <section>
-                                <h1>DEMO</h1>
+                                    <h1>DEMO</h1>
                                 </section>
                                 <section>
                                     <h2>Milestones Reached</h2>
