@@ -252,6 +252,10 @@ Out[13]: ['Today', 'was', 'such', 'a', 'rainy', 'and', 'horrible', 'day']
                                                 </code></pre>
                                             </li>
                                         </ul>
+                                        <aside class="notes">
+                                            How would you describe a point?
+                                            Feature extraction is finding the best way to describe a data set in binary or numerical form
+                                        </aside>
                                     </section>
                                     <section>
                                         <h3>Feature Extraction</h3>
@@ -351,11 +355,15 @@ for word, freq in word_fd.iteritems():
     # The sum of the two will give you it's total score
     word_scores[word] = pos_score + neg_score
                                             </code></pre>
+                                        <aside class="notes">
+                                            Then we go back to all the previous feature vectors, and remove any
+                                            feature that is not in this list
+                                        </aside>
                                     </section>
 				</section>
                                 <section>
                                     <section>
-                                        <h3>Classification</h3>
+                                        <h3>Training</h3>
                                         <p>Now that we can extract features from text, we can train a classifier. The simplest and most flexible learning algorithm for text classification is Naive Bayes</p>
                                         <pre><code>P(label | features) = P(label) * P(features | label) / P(features)</code></pre>
                                         <ul>
@@ -365,7 +373,7 @@ for word, freq in word_fd.iteritems():
                                         </ul>
                                     </section>
                                     <section>
-                                        <h3>Classification</h3>
+                                        <h3>Training</h3>
                                         <p>NLTK provides built-in components</p>
                                         <ol>
                                             <li class="fragment">
@@ -434,6 +442,28 @@ print self.classifier.classify(reduced_feature_vector)
                                             </ul>
                                             <img src="http://www.enterpriseintegrationpatterns.com/img/CompetingConsumers.gif" alt="" />
                                         </div>
+                                    </section>
+                                    <section>
+                                        <h3>Building a classification API</h3>
+                                        <h5>ZeroMQ</h5>
+                                        <pre><code class="python" data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
+...
+socket = context.socket(zmq.REP)
+...
+    while True:
+        message = socket.recv()
+        phrase = json.loads(message)["text"]
+
+        # 1) Feature extraction
+        feature_vector = feature_extractor.extract(phrase)
+
+        # 2) Dimensionality reduction, best_features is our set of best words
+        reduced_feature_vector = reduce_features(feature_vector, best_features)
+
+        # 3) Classify!
+        result = classifier.classify(reduced_feature_vector)
+        socket.send(json.dumps(result))
+                                        </code></pre>
                                     </section>
                                 </section>
 
