@@ -51,6 +51,9 @@
 					<p>
 						<small>Created by <a href="http://github.com/pirosb3">Daniel Pyrathon</a> / <a href="http://twitter.com/pirosb3">@pirosb3</a></small>
 					</p>
+                                        <aside class="notes">
+                                            Permette di migliorare il modo in cui noi scriviamo / pensiamo codice Python
+                                        </aside>
 				</section>
 
 				<section>
@@ -84,6 +87,14 @@ sum([n**2 for n in numbers])
 sum(n**2 for n in numbers)
 333328333350000 
                                         </code></pre>
+                                        <aside class="notes">
+                                            Quale è la differenza tra iteratori e generatori?
+
+                                            All’istanziazione della funzione il generatore viene creato ma nessun codice viene eseguito,
+                                            l’esecuzione si compie solamente quando viene incontrata un’istruzione next(), yield rilascia
+                                            un valore e poi ferma di nuovo tutto in attesa del successivo next(). Quando il generatore,
+                                            che è anche una funzione, ritorna, l’iterazione si interrompe.
+                                        </aside>
 
 				</section>
 
@@ -105,6 +116,12 @@ def anonymous_generator():
        yield n**2
 return anonymous_generator
                                         </code></pre>
+                                        <aside class="notes">
+                                            All’istanziazione della funzione il generatore viene creato ma nessun codice viene eseguito,
+                                            l’esecuzione si compie solamente quando viene incontrata un’istruzione next(), yield rilascia
+                                            un valore e poi ferma di nuovo tutto in attesa del successivo next(). Quando il generatore,
+                                            che è anche una funzione, ritorna, l’iterazione si interrompe.
+                                        </aside>
 				</section>
 
 				<section>
@@ -119,6 +136,12 @@ The true power of iterating over sequences lazily is in saving memory. Plus, you
 					<blockquote cite="http://rare-technologies.com/data-streaming-in-python-generators-iterators-iterables/">
                                             The true power of iterating over sequences lazily is in saving memory. <span style="color: red;">Plus, you can feed generators as input to other generators, creating long, data-driven pipelines, with sequence items pulled and processed as needed.</span> - Radim Řehůřek
 					</blockquote>
+                                        <aside class="notes">
+                                            Due punti importanti: data driven, e la possibilità di pausare.
+                                            Non soltanto i generatori sono potenti da soli, ma la loro vera potenza è nel combinarli insieme e creando il concetto di pipeline di cui parlavo.
+
+                                            Training al EuroPython Berlino
+                                        </aside>
 				</section>
 
 				<section>
@@ -130,6 +153,9 @@ The true power of iterating over sequences lazily is in saving memory. Plus, you
                                             <li>Highly tested, supported, and maintained</li>
                                             <li>One of the keys to writing efficient Python</li>
                                         </ul>
+                                        <aside class="notes">
+                                            Piccoli generatori che possono essere combinati insieme creando pipeline con pochissimo codice.
+                                        </aside>
 				</section>
 
 				<section>
@@ -334,6 +360,9 @@ for channel, byte, in izip(cycle(['R', 'G', 'B', 'A']), image_vector):
 <blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Neural nets has became the itertools of NLP. Q: I&#39;ve an NLP problem; A: Neural nets. Q: I have a python problem; A: itertools. <a href="https://twitter.com/hashtag/python?src=hash">#python</a> <a href="https://twitter.com/hashtag/DNN?src=hash">#DNN</a></p>&mdash; Liling Tan (@alvations) <a href="https://twitter.com/alvations/status/615540685169651712">June 29, 2015</a></blockquote>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
                                         </div>
+                                        <aside class="notes">
+                                            Itertools è il vero e proprio coltellino svizzero di Python
+                                        </aside>
 				</section>
 				<section>
 					<h2>Grazie belli!</h2>
