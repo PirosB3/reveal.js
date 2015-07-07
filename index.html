@@ -239,6 +239,35 @@ seed_generator = xrange(3)
  ('c', 'b', 'a')]
                                         </code></pre>
                                 </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Combinatoric generators</h5>
+                                        <b>combinations()</b>
+                                        <p>n-choose-k unordered combinations of a distinct set</p>
+                                        <pre><code>
+# O(n!/k!(n-k)!) on-demand time, O(1) space
+>>> list(itertools.permutations(string.ascii_lowercase[:3]))
+[('a', 'b', 'c'),
+ ('a', 'c', 'b'),
+ ('b', 'a', 'c'),
+ ('b', 'c', 'a'),
+ ('c', 'a', 'b'),
+ ('c', 'b', 'a')]
+                                        </code></pre>
+                                </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Infinite generators</h5>
+                                        <b>count()</b>
+                                        <p>Like xrange(), but without termination bounds</p>
+                                        <pre><code>
+[(i * 0.25) + 10 for i in range(100)]
+>>> [10.0, 10.25, 10.5, 10.75, ...]
+
+# This can be easily converted to:
+>>> itertools.count(10, 0.25)
+                                        </code></pre>
+                                </section>
 			</div>
 
 		</div>
