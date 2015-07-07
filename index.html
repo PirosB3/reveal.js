@@ -163,15 +163,23 @@ The true power of iterating over sequences lazily is in saving memory. Plus, you
 				<section>
 					<h2>Itertools</h2>
 					<h5>Aggregation generators</h5>
+                                        <p>
+                                            Aggregation generators are used to merge, split, or combine other iterables
+                                            in different ways.
+                                        </p>
+				</section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Aggregation generators</h5>
                                         <b>chain()</b>
                                         <pre><code>
 # Chain as many iterables as you want!
->>> list(itertools.chain('ABC', 'DEF', [1, 2, 3]))
+>>> list(itertools.chain('ABC', 'DEF', xrange(1, 4)))
 ["A" "B" "C" "D" "E" "F", 1, 2, 3]
 
 # Want to flatten a list?
->>> list_of_lists = ['ABC', 'DEF', [1, 2, 3]]
->>> list(itertools.chain(*list_of_lists))
+>>> list_of_lists = ['ABC', 'DEF', xrange(1, 4)]
+>>> list(itertools.chain.from_iterable(list_of_lists))
 ["A" "B" "C" "D" "E" "F", 1, 2, 3]
                                         </code></pre>
                                 </section>
@@ -205,6 +213,14 @@ seed_generator = xrange(3)
  (2, 2, 2, 2)]
                                         </code></pre>
                                 </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Combinatoric generators</h5>
+                                        <p>
+                                            Subsets, Permutations, and Combinations can be very memory hungry. Combinatoric generators allow
+                                            us to generate on demand while always using constant space.
+                                        </p>
+				</section>
 				<section>
 					<h2>Itertools</h2>
 					<h5>Combinatoric generators</h5>
@@ -246,15 +262,19 @@ seed_generator = xrange(3)
                                         <p>n-choose-k unordered combinations of a distinct set</p>
                                         <pre><code>
 # O(n!/k!(n-k)!) on-demand time, O(1) space
->>> list(itertools.permutations(string.ascii_lowercase[:3]))
-[('a', 'b', 'c'),
- ('a', 'c', 'b'),
- ('b', 'a', 'c'),
- ('b', 'c', 'a'),
- ('c', 'a', 'b'),
- ('c', 'b', 'a')]
+>>> list(itertools.permutations(string.ascii_lowercase[:3], 2))
+[('a', 'b'), ('a', 'c'), ('b', 'a'),
+ ('b', 'c'), ('c', 'a'), ('c', 'b')]
                                         </code></pre>
                                 </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Infinite generators</h5>
+                                        <p>
+                                            Usually used in combination with other itertools. Infinite generators tend to
+                                            be very handy for filling in empty sequences or for writing cleaner code.
+                                        </p>
+				</section>
 				<section>
 					<h2>Itertools</h2>
 					<h5>Infinite generators</h5>
@@ -268,6 +288,60 @@ seed_generator = xrange(3)
 >>> itertools.count(10, 0.25)
                                         </code></pre>
                                 </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Infinite generators</h5>
+                                        <b>repeat()</b>
+                                        <p>Repeat an object N times</p>
+                                        <pre><code class="python">
+>>> list(itertools.repeat("hello", 5))
+['hello', 'hello', 'hello', 'hello', 'hello']
+
+# If N is not present, generator will never end.
+# Usually used in conjunction with other itertools
+try:
+    item = next(my_generator)
+except StopIteration:
+    item = DEFAULT_VALUE
+
+# Can be refactored as:
+my_generator = itertools.chain(my_generator,
+                               itertools.repeat(DEFAULT_VALUE))
+for item in my_generator:
+    .....
+                                        </code></pre>
+                                </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Infinite generators</h5>
+                                        <b>cycle()</b>
+                                        <p>Cycles an iterable infinitely</p>
+                                        <pre><code class="python">
+# split each pixel (stored as n_channels * uint8) in channels
+channels = defaultdict(list)
+for channel, byte, in izip(cycle(['R', 'G', 'B', 'A']), image_vector):
+    channels[channel].append(byte)
+                                        </code></pre>
+                                </section>
+				<section>
+					<h2>Itertools</h2>
+					<h5>Conclusion</h5>
+                                        <p>
+                                            By mastering itertools, and using it in your everyday workflow, you will likely encounter less bugs*
+                                            and write simpler and more performant code.
+                                        </p>
+                                        <div style="display: block; margin: 0 auto; width: 500px;">
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Neural nets has became the itertools of NLP. Q: I&#39;ve an NLP problem; A: Neural nets. Q: I have a python problem; A: itertools. <a href="https://twitter.com/hashtag/python?src=hash">#python</a> <a href="https://twitter.com/hashtag/DNN?src=hash">#DNN</a></p>&mdash; Liling Tan (@alvations) <a href="https://twitter.com/alvations/status/615540685169651712">June 29, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                                        </div>
+				</section>
+				<section>
+					<h2>Grazie belli!</h2>
+					<h5>Questions?</h5>
+					<p>
+						<small><a href="http://github.com/pirosb3">Daniel Pyrathon</a> / <a href="http://twitter.com/pirosb3">@pirosb3</a></small>
+					</p>
+				</section>
 			</div>
 
 		</div>
